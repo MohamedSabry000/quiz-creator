@@ -1,4 +1,5 @@
 import { useState, useMemo, createContext } from 'react'
+import quizSample from '../data/quizSample.json'
 
 export const QuizContext = createContext({
     quizzes: [],
@@ -8,7 +9,7 @@ export const QuizContext = createContext({
   })
 
 export const QuizProvider = ({ children }) => {
-    const [quizzes, setQuizzes] = useState([]);
+    const [quizzes, setQuizzes] = useState([quizSample]);
 
     const addToQuizzes = (quiz) => {
         setQuizzes([...quizzes, quiz]);
