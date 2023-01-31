@@ -2,6 +2,17 @@ import { useState, useMemo, createContext } from 'react'
 import { toast } from 'react-toastify';
 import quizSample from '../data/quizSample.json'
 
+const getData = () => {
+  const d = new Date(),
+  dFormat = [ d.getFullYear(),
+              d.getDate(),
+              d.getMonth()+1].join('-')+' '+
+            [ d.getHours(),
+              d.getMinutes(),
+              d.getSeconds()].join(':');
+  return dFormat
+}
+
 const newQuizObject = {
   title: '',
   description: '',
@@ -12,8 +23,8 @@ const newQuizObject = {
 export const QuizContext = createContext({
   quizzes: [],
   addToQuizzes: () => {},
-  removeFromQuizzes: () => {},
-  updateQuiz: () => {},
+  removeFromQuizzes: (id) => {},
+  updateQuiz: (id) => {},
 
   newQuiz: {},
   setTheNewQuiz: () => {},
@@ -29,19 +40,32 @@ export const QuizContext = createContext({
   newQuizQuestionState: 'new',
   clearTheNewQuizQuestionState: () => {},
   updateTheNewQuizQuestionState: () => {}
-  })
+})
 
 export const QuizProvider = ({ children }) => {
     const [quizzes, setQuizzes] = useState([quizSample]);
-    const [newQuiz, setNewQuiz] = useState({...newQuizObject, id: quizzes.length + 1 });
+    console.log("🚀 ~ file: quiz.js:36 ~ QuizProvider ~ quizzes", quizzes)
+    const [newQuiz, setNewQuiz] = useState({...newQuizObject });
+    const [newQuizId, setNewQuizId] = useState(1)
     const [newQuizState, setNewQuizState] = useState("new")
     const [newQuizQuestionState, setNewQuizQuestionState] = useState("new")
     // handle Quizzes
     const addToQuizzes = () => {
+        const now = getData()
+        setQuizzes([
+          ...quizzes, 
+          {
+            ...newQuiz, 
+            id: newQuizId, 
+            created: now,
+            modified: now,
+            score: null
+          }
+        ]);
+        setNewQuizId(newQuizId + 1)
         clearTheNewQuiz()
         clearTheNewQuizState()
         clearTheNewQuizQuestionState()
-        setQuizzes([...quizzes, newQuiz]);
     }
 
     const removeFromQuizzes = (id) => {
@@ -49,7 +73,10 @@ export const QuizProvider = ({ children }) => {
     }
 
     const updateQuiz = (id) => {
-        setQuizzes(quizzes.map((quiz) => quiz.id === id ? { ...quiz, completed: !quiz.completed } : quiz));
+        const now = getData()
+        setQuizzes(quizzes.map((q) => 
+          (q.id === id ? {...newQuiz, modified: now} : q))
+        );
     }
     // handle NewQuiz
     const setTheNewQuiz = (quiz) => {
@@ -64,6 +91,16 @@ export const QuizProvider = ({ children }) => {
       setNewQuiz(quiz);
     }
 
+    const validateYouTubeUrl = (urlToParse) => {
+      if (urlToParse) {
+          var regExp = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+          if (urlToParse.match(regExp)) {
+              return true;
+          }
+      }
+      return false;
+  }
+
     const validateTheNewQuiz = () => {
       if(newQuiz.title === '') {
         toast.error('Please add a title')
@@ -75,6 +112,10 @@ export const QuizProvider = ({ children }) => {
       }
       if(newQuiz.url === '') {
         toast.error('Please add a url')
+        return false
+      }
+      if(!validateYouTubeUrl(newQuiz.url)) {
+        toast.error('Please add a valid url')
         return false
       }
       if(newQuiz.questions_answers.length < 1) {

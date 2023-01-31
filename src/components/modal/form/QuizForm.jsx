@@ -8,10 +8,14 @@ const inputStyle = 'w-full border-b border-gray-300 py-2 px-4 focus:outline-none
 
 function QuizForm({handleClose}) {
   const { 
+    updateQuiz,
+
     newQuiz, 
     updateTheNewQuiz, 
     addToQuizzes,
     validateTheNewQuiz,
+
+    newQuizState,
 } = useContext(QuizContext)
 
     const handleTitleChange = (e) => {
@@ -38,7 +42,9 @@ function QuizForm({handleClose}) {
     const handleSubmit = (e) => {
         e.preventDefault()
         if(validateTheNewQuiz()) {
-            addToQuizzes()
+            newQuizState === 'new'
+                ? addToQuizzes() 
+                : updateQuiz(newQuiz?.id)
             handleClose()
         }
 

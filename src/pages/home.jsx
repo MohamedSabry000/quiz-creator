@@ -9,7 +9,7 @@ function Home() {
     <div>
         <Helmet title="Home" />
 
-        <main className="home">
+        <main className="home mb-24">
             <Header />
             <Quizzes />
             <Footer />
