@@ -11,7 +11,7 @@ function FormQuestion({
     setQuestion,
 }) {
 
-    const { newQuiz, updateTheNewQuiz, newQuizState, updateTheNewQuizState } = useContext(QuizContext)
+    const { newQuiz, updateTheNewQuiz, newQuizQuestionState, updateTheNewQuizQuestionState } = useContext(QuizContext)
     const [qId, setQId] = React.useState(0)
 
     const validateQuestion = () => {
@@ -78,7 +78,7 @@ function FormQuestion({
                 feedback_false: '',
                 feedback_true: ''
             })
-            updateTheNewQuizState('add')
+            updateTheNewQuizQuestionState('add')
         }
     }
 
@@ -89,7 +89,7 @@ function FormQuestion({
             feedback_false: '',
             feedback_true: ''
         })
-        updateTheNewQuizState('add')
+        updateTheNewQuizQuestionState('add')
     }
 
   return (
@@ -115,15 +115,15 @@ function FormQuestion({
                 color='primary'
                 className='!mt-4'
                 onClick={
-                    newQuizState === 'edit' ? handleEditQuestion : handleAddQuestion
+                    newQuizQuestionState === 'edit' ? handleEditQuestion : handleAddQuestion
                 }
             >
                 {
-                    newQuizState === 'edit' ? 'Edit Question' : 'Add Question'
+                    newQuizQuestionState === 'edit' ? 'Edit Question' : 'Add Question'
                 }
             </Button>
             {
-                newQuizState === 'edit' && 
+                newQuizQuestionState === 'edit' && 
                     <Button
                         variant='contained'
                         color='warning'

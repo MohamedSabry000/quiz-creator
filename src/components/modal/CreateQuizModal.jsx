@@ -4,14 +4,15 @@ import { Box, Button, Modal } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import QuizForm from './form/QuizForm';
 import { QuizContext } from '../../context/quiz';
+import { ModalContext } from '../../context/modal';
 
 function CreateQuizModal() {
     const { clearTheNewQuiz } = useContext(QuizContext)
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () =>  { setOpen(true); };
+    const { modalOpen, closeModal, openModal } = useContext(ModalContext)
+
     const handleClose = () => { 
         clearTheNewQuiz();  // Clear the new quiz in the context state before closing the modal
-        setOpen(false);
+        closeModal(false);
     };
 
     return (
@@ -21,7 +22,7 @@ function CreateQuizModal() {
                     variant='contained' 
                     color='primary'
                     className='!mt-4'
-                    onClick={handleOpen}
+                    onClick={openModal}
                 >
                     Create Quiz
                 </Button>
@@ -29,7 +30,7 @@ function CreateQuizModal() {
 
             {/* Modal */}
             <Modal
-                open={open}
+                open={modalOpen}
                 onClose={handleClose}
                 aria-labelledby='create-quiz-modal'
                 aria-describedby="create-quiz-modal"

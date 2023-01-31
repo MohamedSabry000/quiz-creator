@@ -28,11 +28,11 @@ function FormQuestionsList() {
 export default FormQuestionsList
 
 const ViewAllQuestions = ({setQuestion}) => {
-    const { newQuiz, removeQuestionFromTheNewQuiz, updateTheNewQuizState } = useContext(QuizContext)
+    const { newQuiz, removeQuestionFromTheNewQuiz, updateTheNewQuizQuestionState } = useContext(QuizContext)
 
     const updateQuestion = (q) => {
         setQuestion({...q})
-        updateTheNewQuizState('edit')
+        updateTheNewQuizQuestionState('edit')
     }
     return (
         <div className='mt-4'>

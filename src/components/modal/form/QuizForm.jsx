@@ -40,14 +40,13 @@ function QuizForm({handleClose}) {
         if(validateTheNewQuiz()) {
             addToQuizzes()
             handleClose()
-
         }
 
     }
 
     // Render the form for adding a question and answers
     return (
-        <form onSubmit={handleSubmit} className='mt-6 overflow-y-auto absolute h-full w-full top-0 left-0 '>
+        <div className='mt-6 overflow-y-auto absolute h-full w-full top-0 left-0 '>
             {/* Form Title, URL, Description */}
             <div className="p-4 bg-gray-100 rounded-md shadow-md mt-4 ">
                 <div className=' grid grid-cols-1 md:grid-cols-2 gap-4'>
@@ -86,7 +85,7 @@ function QuizForm({handleClose}) {
             {/* Form Questions [] */}
             <FormQuestionsList />
             <Button className="!my-5 !mb-10" variant='contained' onClick={handleSubmit}>Submit</Button>
-        </form>
+        </div>
     )
 }
 

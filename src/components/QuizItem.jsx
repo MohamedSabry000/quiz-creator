@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import ReactPlayer from 'react-player'
 import FlexCenter from './flex/FlexCenter'
 import FlexBetween from './flex/FlexBetween'
 import { Button } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
+import { ModalContext } from '../context/modal'
+import { QuizContext } from '../context/quiz'
 
 function QuizItem({quiz}) {
 
-    const navigate = useNavigate()
+    const { setTheNewQuiz } = useContext(QuizContext)
+    const { openModal } = useContext(ModalContext)
 
     const restrictText = (text, length) => {
         if (text.length > length) {
@@ -19,7 +22,9 @@ function QuizItem({quiz}) {
     const handleEdit = (e, id) => {
         e.preventDefault()
         e.stopPropagation()
-        navigate(`/quiz/${id}/edit`)
+
+        setTheNewQuiz(quiz)
+        openModal('quiz')
     }
 
   return (

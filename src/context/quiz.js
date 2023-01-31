@@ -10,20 +10,37 @@ const newQuizObject = {
 }
 
 export const QuizContext = createContext({
-    quizzes: [],
-    addToQuizzes: (quiz) => {},
-    removeFromQuizzes: (id) => {},
-    updateQuiz: (id) => {},
+  quizzes: [],
+  addToQuizzes: () => {},
+  removeFromQuizzes: () => {},
+  updateQuiz: () => {},
+
+  newQuiz: {},
+  setTheNewQuiz: () => {},
+  clearTheNewQuiz: () => {},
+  updateTheNewQuiz: () => {},
+  removeQuestionFromTheNewQuiz: () => {},
+  validateTheNewQuiz: () => {},
+
+  newQuizState: 'new',
+  clearTheNewQuizState: () => {},
+  updateTheNewQuizState: () => {},
+
+  newQuizQuestionState: 'new',
+  clearTheNewQuizQuestionState: () => {},
+  updateTheNewQuizQuestionState: () => {}
   })
 
 export const QuizProvider = ({ children }) => {
     const [quizzes, setQuizzes] = useState([quizSample]);
     const [newQuiz, setNewQuiz] = useState({...newQuizObject, id: quizzes.length + 1 });
     const [newQuizState, setNewQuizState] = useState("new")
+    const [newQuizQuestionState, setNewQuizQuestionState] = useState("new")
     // handle Quizzes
     const addToQuizzes = () => {
         clearTheNewQuiz()
         clearTheNewQuizState()
+        clearTheNewQuizQuestionState()
         setQuizzes([...quizzes, newQuiz]);
     }
 
@@ -74,13 +91,22 @@ export const QuizProvider = ({ children }) => {
       })
     }
 
-    // handle NewQuizState
+    // handle newQuizState
     const clearTheNewQuizState = () => {
       setNewQuizState("new");
     }
 
     const updateTheNewQuizState = (state) => {
       setNewQuizState(state);
+    }
+
+    // handle newQuizQuestionState
+    const clearTheNewQuizQuestionState = () => {
+      setNewQuizQuestionState("new");
+    }
+
+    const updateTheNewQuizQuestionState = (state) => {
+      setNewQuizQuestionState(state);
     }
 
     const value = useMemo(() => ({
@@ -98,8 +124,12 @@ export const QuizProvider = ({ children }) => {
 
       newQuizState,
       clearTheNewQuizState,
-      updateTheNewQuizState
-    }), [quizzes, newQuiz, newQuizState])
+      updateTheNewQuizState,
+
+      newQuizQuestionState,
+      clearTheNewQuizQuestionState,
+      updateTheNewQuizQuestionState
+    }), [quizzes, newQuiz, newQuizQuestionState])
 
     return <QuizContext.Provider value={value}>
       { children }
