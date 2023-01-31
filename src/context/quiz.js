@@ -1,4 +1,5 @@
 import { useState, useMemo, createContext } from 'react'
+import { toast } from 'react-toastify';
 import quizSample from '../data/quizSample.json'
 
 const newQuizObject = {
@@ -20,8 +21,10 @@ export const QuizProvider = ({ children }) => {
     const [newQuiz, setNewQuiz] = useState({...newQuizObject, id: quizzes.length + 1 });
     const [newQuizState, setNewQuizState] = useState("new")
     // handle Quizzes
-    const addToQuizzes = (quiz) => {
-        setQuizzes([...quizzes, quiz]);
+    const addToQuizzes = () => {
+        clearTheNewQuiz()
+        clearTheNewQuizState()
+        setQuizzes([...quizzes, newQuiz]);
     }
 
     const removeFromQuizzes = (id) => {
@@ -42,6 +45,26 @@ export const QuizProvider = ({ children }) => {
 
     const updateTheNewQuiz = (quiz) => {
       setNewQuiz(quiz);
+    }
+
+    const validateTheNewQuiz = () => {
+      if(newQuiz.title === '') {
+        toast.error('Please add a title')
+        return false
+      }
+      if(newQuiz.description === '') {
+        toast.error('Please add a description')
+        return false
+      }
+      if(newQuiz.url === '') {
+        toast.error('Please add a url')
+        return false
+      }
+      if(newQuiz.questions_answers.length < 1) {
+        toast.error('Please add at least one question')
+        return false
+      }
+      return true
     }
 
     const removeQuestionFromTheNewQuiz = (q) => {
@@ -71,6 +94,7 @@ export const QuizProvider = ({ children }) => {
       clearTheNewQuiz,
       updateTheNewQuiz,
       removeQuestionFromTheNewQuiz,
+      validateTheNewQuiz,
 
       newQuizState,
       clearTheNewQuizState,

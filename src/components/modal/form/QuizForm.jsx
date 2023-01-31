@@ -7,7 +7,12 @@ import FormQuestionsList from './FormQuestionsList'
 const inputStyle = 'w-full border-b border-gray-300 py-2 px-4 focus:outline-none focus:border-amber-400 transition duration-300 ease-in-out text-sm md:text-base'
 
 function QuizForm({handleClose}) {
-  const { newQuiz, updateTheNewQuiz } = useContext(QuizContext)
+  const { 
+    newQuiz, 
+    updateTheNewQuiz, 
+    addToQuizzes,
+    validateTheNewQuiz,
+} = useContext(QuizContext)
 
     const handleTitleChange = (e) => {
         updateTheNewQuiz({
@@ -32,6 +37,12 @@ function QuizForm({handleClose}) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        if(validateTheNewQuiz()) {
+            addToQuizzes()
+            handleClose()
+
+        }
+
     }
 
     // Render the form for adding a question and answers
