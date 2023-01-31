@@ -1,40 +1,13 @@
 import React, { useContext, useState } from 'react'
-import QuizFormElement from './QuizFormElement'
-import { QuizContext } from '../context/quiz'
-import FlexCenter from './flex/FlexCenter'
+import QuizFormElement from './containers/QuizFormElement'
+import { QuizContext } from '../../../context/quiz'
 import { Button } from '@mui/material'
-import QuizFormQuestionContainer from './QuizFormQuestionContainer'
-import { toast } from 'react-toastify'
-import QuizFormAnswerContainer from './QuizFormAnswerContainer'
-import StudentAnswer from './StudentAnswer'
 import FormQuestionsList from './FormQuestionsList'
 
 const inputStyle = 'w-full border-b border-gray-300 py-2 px-4 focus:outline-none focus:border-amber-400 transition duration-300 ease-in-out text-sm md:text-base'
 
 function QuizForm({handleClose}) {
-  const { quizzes, newQuiz, updateTheNewQuiz } = useContext(QuizContext)
-
-    // const [quiz, setQuiz] = useState({
-    //     id: quizzes.length + 1,
-    //     title: '',
-    //     description: '',
-    //     url: '',
-    //     questions_answers: []
-    // })
-
-    const [question, setQuestion] = useState({
-        text: '',
-        answers: [],
-        feedback_false: '',
-        feedback_true: ''
-    })
-    
-    const [qId, setQId] = useState(1)
-
-    const [answer, setAnswer] = useState({
-        text: '',
-        is_true: false
-    })
+  const { newQuiz, updateTheNewQuiz } = useContext(QuizContext)
 
     const handleTitleChange = (e) => {
         updateTheNewQuiz({
@@ -59,11 +32,6 @@ function QuizForm({handleClose}) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-    }
-
-    const getQuestionId = () => {
-        setQId(qId + 1)
-        return `Q ${qId}`
     }
 
     // Render the form for adding a question and answers

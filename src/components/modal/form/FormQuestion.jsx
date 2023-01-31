@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
-import QuizFormQuestionContainer from './QuizFormQuestionContainer'
-import FlexCenter from './flex/FlexCenter'
-import QuizFormAnswerContainer from './QuizFormAnswerContainer'
+import QuizFormQuestionContainer from './containers/q/QuizFormQuestionContainer'
+import FlexCenter from '../../flex/FlexCenter'
+import QuizFormAnswerContainer from './containers/a/QuizFormAnswerContainer'
 import { Button } from '@mui/material'
 import { toast } from 'react-toastify'
-import { QuizContext } from '../context/quiz'
+import { QuizContext } from '../../../context/quiz'
 
 function FormQuestion({
     question,
@@ -82,6 +82,16 @@ function FormQuestion({
         }
     }
 
+    const resetQuestion = () => {
+        setQuestion({
+            text: '',
+            answers: [],
+            feedback_false: '',
+            feedback_true: ''
+        })
+        updateTheNewQuizState('add')
+    }
+
   return (
     <div className=''>
         {/* Question */}
@@ -112,6 +122,17 @@ function FormQuestion({
                     newQuizState === 'edit' ? 'Edit Question' : 'Add Question'
                 }
             </Button>
+            {
+                newQuizState === 'edit' && 
+                    <Button
+                        variant='contained'
+                        color='warning'
+                        className='!mt-4 !mx-2'
+                        onClick={() => resetQuestion()}
+                    >
+                        Reset
+                    </Button>
+            }
         </FlexCenter>
     </div>
   )

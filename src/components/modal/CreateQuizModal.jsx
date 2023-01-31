@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import FlexCenter from './flex/FlexCenter'
+import FlexCenter from '../flex/FlexCenter'
 import { Box, Button, Modal } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
-import QuizForm from './QuizForm';
-import { QuizContext } from '../context/quiz';
+import QuizForm from './form/QuizForm';
+import { QuizContext } from '../../context/quiz';
 
 function CreateQuizModal() {
     const { clearTheNewQuiz } = useContext(QuizContext)

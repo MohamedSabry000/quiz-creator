@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import QuizFormQuestionContainer from './QuizFormQuestionContainer'
-import StudentAnswer from './StudentAnswer'
+import QuizFormQuestionContainer from './containers/q/QuizFormQuestionContainer'
+import StudentAnswer from '../../StudentAnswer'
 import FormQuestion from './FormQuestion'
-import { QuizContext } from '../context/quiz'
+import { QuizContext } from '../../../context/quiz'
 
 function FormQuestionsList() {
     const [currentQuestion, setCurrentQuestion] = React.useState({
@@ -17,7 +17,9 @@ function FormQuestionsList() {
   return (
     <div className="p-4 bg-gray-100 rounded-md shadow-md mt-4">
         <h3 className='text-lg font-bold underline '>Questions</h3>
-        <FormQuestion question={currentQuestion} setQuestion={setCurrentQuestion} />
+        <div className='p-2 bg-gray-600 rounded-md mt-2'>
+            <FormQuestion question={currentQuestion} setQuestion={setCurrentQuestion} />
+        </div>
         <ViewAllQuestions setQuestion={setCurrentQuestion}/>
     </div>
   )

@@ -3,7 +3,7 @@ import FlexCenter from './flex/FlexCenter'
 import { Button } from '@mui/material'
 import { QuizContext } from '../context/quiz'
 import QuizItem from './QuizItem'
-import CreateQuizModal from './CreateQuizModal'
+import CreateQuizModal from './modal/CreateQuizModal'
 
 function Quizzes() {
   const { quizzes } = useContext(QuizContext)

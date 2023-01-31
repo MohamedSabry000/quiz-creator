@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
-import QuizFormElement from './QuizFormElement'
 import { Button, FormControl, FormControlLabel, Radio, RadioGroup  } from '@mui/material'
-import QuizInput from './QuizInput'
-import FlexCenter from './flex/FlexCenter'
-import StudentAnswer from './StudentAnswer';
+import QuizFormElement from '../QuizFormElement'
+import QuizInput from '../QuizInput'
+import FlexCenter from '../../../../flex/FlexCenter'
+import StudentAnswer from '../../../../StudentAnswer';
 
 function QuizFormAnswerContainer({
     className,
@@ -81,18 +81,24 @@ const AnswerView = ({answers, setAnswers}) => {
         setAnswers(tempA)
     }
 
+    const getDefaultValue = () => {
+        const tempA = answers.find(ans => ans.is_true)
+        console.log("🚀 ~ file: QuizFormAnswerContainer.jsx:86 ~ getDefaultValue ~ tempA", tempA ? tempA.id+'' : '')
+        return tempA ? tempA.id+'' : ''
+    }
+
     return (
         <FormControl className='w-full'>
             <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue=""
+                defaultValue={getDefaultValue()}
                 name="radio-buttons-group"
                 className='!grid grid-cols-1 md:grid-cols-2 gap-4 w-full'
             >
                 {answers.map((answer, index) => (
                     <div key={index} className='relative'>
                         <FormControlLabel 
-                            value={answer.id} 
+                            value={answer.id+''} 
                             control={<Radio />} 
                             label={answer?.text} 
                             onClick={handleAnswerClick}

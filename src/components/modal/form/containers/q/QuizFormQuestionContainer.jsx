@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import QuizFormElement from './QuizFormElement'
-import QuizInput from './QuizInput'
-import FlexCenter from './flex/FlexCenter'
+import QuizFormElement from '../QuizFormElement'
+import QuizInput from '../QuizInput'
+import FlexCenter from '../../../../flex/FlexCenter'
 import { Button } from '@mui/material'
-import QuizFormAnswerContainer from './QuizFormAnswerContainer'
+import QuizFormAnswerContainer from '../a/QuizFormAnswerContainer'
 
 function QuizFormQuestionContainer({
     className,
@@ -11,16 +11,8 @@ function QuizFormQuestionContainer({
     setQuestion,
 }) {
 
-    // const [answers, setAnswers] = useState(question.answers? [...question.answers] : [])
-
-    // useEffect(() => {
-    //     setQuestion && setQuestion(prev => ({...prev, answers: answers}))
-    // }, [answers])
-
-    // const [q, setQ] = useState({...question})
-
   return (
-    <div className='mt-2 bg-gray-300 px-4 py-2 rounded-md'>
+    <div className='mt-1 bg-gray-300 px-4 py-2 rounded-md'>
         <QuizFormElement label='Question'>
             <QuizInput
                 name="question"

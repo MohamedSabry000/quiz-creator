@@ -1,5 +1,5 @@
 import React from 'react'
-import FlexBetween from './flex/FlexBetween'
+import FlexBetween from '../../../flex/FlexBetween'
 
 function QuizFormElement({
     label,

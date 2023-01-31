@@ -1,5 +1,5 @@
 import React from 'react'
-import QuizFormQuestionContainer from './QuizFormQuestionContainer'
+import QuizFormQuestionContainer from './modal/form/containers/q/QuizFormQuestionContainer'
 import StudentAnswer from './StudentAnswer'
 
 function QuestionsView({
