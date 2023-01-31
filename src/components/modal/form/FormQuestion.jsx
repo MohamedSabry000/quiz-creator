@@ -48,7 +48,7 @@ function FormQuestion({
                 ...newQuiz,
                 questions_answers: [
                     ...newQuiz.questions_answers, 
-                    {...question, id: qId}
+                    {...question, id: qId, answer_id: null}
                 ]
             })
             setQuestion({

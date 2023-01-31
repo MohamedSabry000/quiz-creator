@@ -25,6 +25,7 @@ export const QuizContext = createContext({
   addToQuizzes: () => {},
   removeFromQuizzes: (id) => {},
   updateQuiz: (id) => {},
+  updateScore: (id, score) => {},
 
   newQuiz: {},
   setTheNewQuiz: () => {},
@@ -77,6 +78,12 @@ export const QuizProvider = ({ children }) => {
         setQuizzes(quizzes.map((q) => 
           (q.id === id ? {...newQuiz, modified: now} : q))
         );
+    }
+
+    const updateScore = (id, score) => {
+      setQuizzes(quizzes.map((q) =>
+        (q.id === id ? {...q, score: score} : q))
+      );
     }
     // handle NewQuiz
     const setTheNewQuiz = (quiz) => {
@@ -155,6 +162,7 @@ export const QuizProvider = ({ children }) => {
       addToQuizzes,
       removeFromQuizzes,
       updateQuiz,
+      updateScore,
 
       newQuiz,
       setTheNewQuiz,

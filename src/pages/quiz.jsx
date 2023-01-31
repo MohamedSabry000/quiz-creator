@@ -44,7 +44,7 @@ function Quiz() {
               )
             }
 
-            <QuestionsView questions={quiz.questions_answers} />
+            <QuestionsView quiz={quiz} />
             <Footer />
           </main>
       </div>
