@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import FlexCenter from './flex/FlexCenter'
 import { Box, Button, Modal } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import QuizForm from './QuizForm';
+import { QuizContext } from '../context/quiz';
 
 function CreateQuizModal() {
+    const { clearTheNewQuiz } = useContext(QuizContext)
     const [open, setOpen] = React.useState(false);
     const handleOpen = () =>  { setOpen(true); };
-    const handleClose = () => { setOpen(false); };
+    const handleClose = () => { 
+        clearTheNewQuiz();  // Clear the new quiz in the context state before closing the modal
+        setOpen(false);
+    };
 
     return (
         <>

@@ -4,19 +4,23 @@ import { QuizContext } from '../context/quiz'
 import FlexCenter from './flex/FlexCenter'
 import { Button } from '@mui/material'
 import QuizFormQuestionContainer from './QuizFormQuestionContainer'
+import { toast } from 'react-toastify'
+import QuizFormAnswerContainer from './QuizFormAnswerContainer'
+import StudentAnswer from './StudentAnswer'
+import FormQuestionsList from './FormQuestionsList'
 
 const inputStyle = 'w-full border-b border-gray-300 py-2 px-4 focus:outline-none focus:border-amber-400 transition duration-300 ease-in-out text-sm md:text-base'
 
 function QuizForm({handleClose}) {
-  const { quizzes } = useContext(QuizContext)
+  const { quizzes, newQuiz, updateTheNewQuiz } = useContext(QuizContext)
 
-    const [quiz, setQuiz] = useState({
-        id: quizzes.length + 1,
-        title: '',
-        description: '',
-        url: '',
-        questions: []
-    })
+    // const [quiz, setQuiz] = useState({
+    //     id: quizzes.length + 1,
+    //     title: '',
+    //     description: '',
+    //     url: '',
+    //     questions_answers: []
+    // })
 
     const [question, setQuestion] = useState({
         text: '',
@@ -24,6 +28,7 @@ function QuizForm({handleClose}) {
         feedback_false: '',
         feedback_true: ''
     })
+    
     const [qId, setQId] = useState(1)
 
     const [answer, setAnswer] = useState({
@@ -32,64 +37,28 @@ function QuizForm({handleClose}) {
     })
 
     const handleTitleChange = (e) => {
-        setQuiz({
-            ...quiz,
+        updateTheNewQuiz({
+            ...newQuiz,
             title: e.target.value
         })
     }
 
     const handleUrlChange = (e) => {
-        setQuiz({
-            ...quiz,
+        updateTheNewQuiz({
+            ...newQuiz,
             url: e.target.value
         })
     }
 
     const handleDescriptionChange = (e) => {
-        setQuiz({
-            ...quiz,
+        updateTheNewQuiz({
+            ...newQuiz,
             description: e.target.value
-        })
-    }
-
-    const handleQuestionChange = (e) => {
-        setQuestion({
-            ...question,
-            question: e.target.value
-        })
-    }
-
-    const handleAnswerChange = (e) => {
-        setAnswer({
-            ...answer,
-            answer: e.target.value
-        })
-    }
-
-    const handleCorrectChange = (e) => {
-        setAnswer({
-            ...answer,
-            correct: e.target.checked
         })
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(quiz)
-    }
-
-    const handleAddQuestion = (e) => {
-        e.preventDefault()
-        setQuiz({
-            ...quiz,
-            questions: [...quiz.questions, question]
-        })
-        setQuestion({
-            text: '',
-            answers: [],
-            feedback_false: '',
-            feedback_true: ''
-        })
     }
 
     const getQuestionId = () => {
@@ -97,9 +66,10 @@ function QuizForm({handleClose}) {
         return `Q ${qId}`
     }
 
-
+    // Render the form for adding a question and answers
     return (
         <form onSubmit={handleSubmit} className='mt-6 overflow-y-auto absolute h-full w-full top-0 left-0 '>
+            {/* Form Title, URL, Description */}
             <div className="p-4 bg-gray-100 rounded-md shadow-md mt-4 ">
                 <div className=' grid grid-cols-1 md:grid-cols-2 gap-4'>
                     <QuizFormElement label='Title'>
@@ -108,7 +78,7 @@ function QuizForm({handleClose}) {
                             type='text'
                             name='title'
                             id='title'
-                            value={quiz.title}
+                            value={newQuiz.title}
                             onChange={handleTitleChange}
                         />
                     </QuizFormElement>
@@ -118,7 +88,7 @@ function QuizForm({handleClose}) {
                             type='text'
                             name='url'
                             id='url'
-                            value={quiz.url}
+                            value={newQuiz.url}
                             onChange={handleUrlChange}
                         />
                     </QuizFormElement>
@@ -129,41 +99,14 @@ function QuizForm({handleClose}) {
                         className={inputStyle}
                         name='description'
                         id='description'
-                        value={quiz.description}
+                        value={newQuiz.description}
                         onChange={handleDescriptionChange}
                     />
                 </div>
             </div>
-            <div className="p-4 bg-gray-100 rounded-md shadow-md mt-4">
-                <h3 className='text-lg font-bold underline '>Questions</h3>
-                <div className=''>
-                    <QuizFormQuestionContainer 
-                        question={question} 
-                        setQuestion={setQuestion}
-                    />
-                    <FlexCenter>
-                        <Button
-                            variant='contained'
-                            color='primary'
-                            className='!mt-4'
-                            onClick={handleAddQuestion}
-                        >
-                            Add This Question
-                        </Button>
-                    </FlexCenter>
-                </div>
-                <div className='mt-4'>
-                    {
-                        quiz.questions.map((q, i) => 
-                            <QuizFormQuestionContainer 
-                                key={i} 
-                                question={q} 
-                            />
-                        )
-                    }
-                </div>
-            </div>
-            <button type='submit'>Submit</button>
+            {/* Form Questions [] */}
+            <FormQuestionsList />
+            <Button className="!my-5 !mb-10" variant='contained' onClick={handleSubmit}>Submit</Button>
         </form>
     )
 }
