@@ -91,7 +91,7 @@ const AnswerView = ({answers, setAnswers}) => {
         <FormControl className='w-full'>
             <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue={getDefaultValue()}
+                value={getDefaultValue()}
                 name="radio-buttons-group"
                 className='!grid grid-cols-1 md:grid-cols-2 gap-4 w-full'
             >
