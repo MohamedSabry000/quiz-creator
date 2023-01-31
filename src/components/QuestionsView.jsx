@@ -22,7 +22,6 @@ function QuestionsView({
   }
 
   const handleAnswer = (e, questionId) => {
-    console.log('handleAnswer', e.target.value)
     const newQuiz = {...myQuiz}
     const question = newQuiz.questions_answers.find(q => q.id === questionId)
     question.answer_id = e.target.value
@@ -39,14 +38,12 @@ function QuestionsView({
   }
 
   const evaluate = () => {
-    console.log('evaluate')
     if(!validate()) return
     const score = myQuiz.questions_answers.filter(q => {
       const answer = q.answers.find(a => a.id+'' === q.answer_id+'')
       return answer.is_true
     }).length
 
-    console.log('score', score)
     const percentage = ((score / myQuiz.questions_answers.length) * 100).toFixed(2)+'%'
     toast.success(`You scored ${percentage}`)
     updateScore(quiz.id, percentage)

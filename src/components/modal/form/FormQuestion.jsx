@@ -19,7 +19,6 @@ function FormQuestion({
             toast.error('Please add a question')
             return false
         }
-        console.log("🚀 ~ file: FormQuestion.jsx:34 ~ validateQuestion ~ question", question)
 
         if(question.answers.length < 2) {
             toast.error('Please add at least 2 answers')

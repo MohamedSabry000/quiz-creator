@@ -45,7 +45,6 @@ export const QuizContext = createContext({
 
 export const QuizProvider = ({ children }) => {
     const [quizzes, setQuizzes] = useState([quizSample]);
-    console.log("🚀 ~ file: quiz.js:36 ~ QuizProvider ~ quizzes", quizzes)
     const [newQuiz, setNewQuiz] = useState({...newQuizObject });
     const [newQuizId, setNewQuizId] = useState(1)
     const [newQuizState, setNewQuizState] = useState("new")

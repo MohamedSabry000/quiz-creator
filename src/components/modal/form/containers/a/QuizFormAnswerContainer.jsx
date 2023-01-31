@@ -11,7 +11,6 @@ function QuizFormAnswerContainer({
     answers,
     setAnswers,
 }) {
-    console.log("🚀 ~ file: QuizFormAnswerContainer.jsx:15 ~ answers", answers)
     const [newA, setNewA] = useState({
         id: answers? answers.length : 0,
         text: '',
@@ -21,8 +20,6 @@ function QuizFormAnswerContainer({
 
     const handleAddAnswer = () => {
         if(!newA.text) return
-        console.log(answers)
-        console.log({...newA, id: aId})
         setAnswers([...answers, {...newA, id: aId}])
         // setA([...a, {...newA, id: aId}])
         setAId(aId + 1)
@@ -83,7 +80,6 @@ const AnswerView = ({answers, setAnswers}) => {
 
     const getDefaultValue = () => {
         const tempA = answers.find(ans => ans.is_true)
-        console.log("🚀 ~ file: QuizFormAnswerContainer.jsx:86 ~ getDefaultValue ~ tempA", tempA ? tempA.id+'' : '')
         return tempA ? tempA.id+'' : ''
     }
 
